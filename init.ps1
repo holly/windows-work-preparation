@@ -1,7 +1,6 @@
 ﻿$REPO_URL        = "https://raw.githubusercontent.com/holly/windows-work-preparation/main"
 $SCOOP_LIST      = "$REPO_URL/scoop.txt"
 $PS_START_SCRIPT = "$REPO_URL/Microsoft.PowerShell_profile.ps1"
-$INIT_VIM        = "$REPO_URL/init.vim"
 $SCOOP_INSTALLER = "https://get.scoop.sh"
 $PLUG_VIM        = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
@@ -66,7 +65,8 @@ Write-Output "save as $save_path"
 Write-Output ""
 Write-Output "download nvim init.vim"
 $save_path = "$ENV:LOCALAPPDATA\nvim\init.vim"
-Invoke-WebRequest -Uri $INIT_VIM -OutFile $save_path
+$url       = "$REPO_URL/nvim/init.vim"
+Invoke-WebRequest -Uri $url -OutFile $save_path
 Write-Output "save as $save_path"
 
 Write-Output ""
@@ -80,7 +80,7 @@ Write-Output "download vim template"
 $NVIM_TEMPLATE_FILES | ForEach-Object {
 
     $save_path = "$ENV:LOCALAPPDATA\nvim\template\$PSItem"
-    $url       = "$REPO_URL/nvim_template/$PSItem"
+    $url       = "$REPO_URL/nvim/template/$PSItem"
 
     Invoke-WebRequest -Uri $url -OutFile $save_path
     Write-Output "save as $save_path"
