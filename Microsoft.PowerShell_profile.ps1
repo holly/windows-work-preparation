@@ -12,3 +12,11 @@ Function uptime() {
 Function home() {
   Set-Location $ENV:USERPROFILE
 }
+
+Function gitps() {
+  git push origin main
+}
+
+Function gitpl() {
+  git pull
+}
