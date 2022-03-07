@@ -1,0 +1,32 @@
+#!python
+# vim:fileencoding=utf-8
+
+""" [NAME] script or package easy description
+
+[DESCRIPTION] script or package description
+"""
+from datetime import datetime
+from argparse import ArgumentParser
+import pprint
+import time
+import warnings
+import os, sys, io
+import signal
+
+author__  = 'holly'
+version__ = '1.0'
+
+DESCRIPTION = 'this is description'
+
+parser = ArgumentParser(description=DESCRIPTION)
+parser.add_argument('--version', action='version', version='%(prog)s ' + __version__)
+args = parser.parse_args()
+
+
+def main():
+    """ [FUNCTIONS] method or functon description
+    """
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
