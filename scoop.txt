@@ -1,0 +1,10 @@
+ 7zip
+ gcc
+ git
+ go
+ python
+ gow
+ jq
+ neovim
+ openssl
+ pandoc
