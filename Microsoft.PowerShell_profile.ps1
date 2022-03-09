@@ -5,16 +5,16 @@ $MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
 
 # ================= function ================== #
 
-Function prompt() {
-
-  $date = Get-Date -Format "HH:mm:ss"  # 日付
-  $path = Split-Path -Path $pwd -Leaf  # カレントディレクトリ
-
-  Write-Host $date -NoNewline
-  Write-Host " "   -NoNewline
-  Write-Host $path -NoNewline
-  Write-Host " $"  -NoNewline
-  return " "
+function prompt () {
+    $prompt = if (-not(([Security.Principal.WindowsPrincipal] `
+                    [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
+                    [Security.Principal.WindowsBuiltInRole] "Administrator"`
+            ))) {
+        " > "
+    }else{
+        " # "
+    }
+    "[$($env:USERNAME)@$($env:COMPUTERNAME) " + (Split-Path (Get-Location) -Leaf) + "]${prompt}"
 }
 
 Function uptime() {
@@ -26,6 +26,14 @@ Function home() {
   Set-Location $ENV:USERPROFILE
 }
 
+Function gico() {
+  Param (
+    [String] $Comment
+  )
+  git commit -m "$Comment"
+}
+
+
 Function giph() {
   git push origin main
 }
@@ -36,10 +44,10 @@ Function gipl() {
 
 Function ucat() {
 
-	Param (
-		[String] $Path
-	)
-	Get-Content -Encoding UTF8 -Path $Path
+  Param (
+    [String] $Path
+  )
+  Get-Content -Encoding UTF8 -Path $Path
 }
 
 # ================= alias ================== #
