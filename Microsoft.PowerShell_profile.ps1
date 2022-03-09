@@ -1,8 +1,21 @@
 $ENV:PATH += ";$ENV:USERPROFILE\bin"
 
-Set-Alias vi nvim
+$MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
 
-$myvimrc = "$ENV:LOCALAPPDATA\nvim\init.vim"
+
+# ================= function ================== #
+
+Function prompt() {
+
+  $date = Get-Date -Format "HH:mm:ss"  # 日付
+  $path = Split-Path -Path $pwd -Leaf  # カレントディレクトリ
+
+  Write-Host $date -NoNewline
+  Write-Host " "   -NoNewline
+  Write-Host $path -NoNewline
+  Write-Host " $"  -NoNewline
+  return " "
+}
 
 Function uptime() {
   [DateTime]::Now -  [Management.ManagementDateTimeConverter]::ToDateTime((Get-WmiObject Win32_OperatingSystem).LastBootUpTime) |
@@ -13,10 +26,22 @@ Function home() {
   Set-Location $ENV:USERPROFILE
 }
 
-Function gitps() {
+Function giph() {
   git push origin main
 }
 
-Function gitpl() {
+Function gipl() {
   git pull
 }
+
+Function ucat() {
+
+	Param (
+		[String] $Path
+	)
+	Get-Content -Encoding UTF8 -Path $Path
+}
+
+# ================= alias ================== #
+
+Set-Alias vi nvim
