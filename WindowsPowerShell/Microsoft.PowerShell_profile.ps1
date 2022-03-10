@@ -62,7 +62,7 @@ Function la() {
 }
 
 Function sup() {
-  Start-Process -FilePath pwsh -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
+  Start-Process -FilePath powershell -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
 }
 
 # ================= alias ================== #
