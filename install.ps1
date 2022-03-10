@@ -2,7 +2,7 @@
 
 $REPO_URL        = "https://raw.githubusercontent.com/holly/windows-work-preparation/main"
 $SCOOP_LIST      = "$REPO_URL/scoop.txt"
-$PS_START_SCRIPT = "$REPO_URL/Microsoft.PowerShell_profile.ps1"
+$PS_START_SCRIPT = "$REPO_URL/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
 $SCOOP_INSTALLER = "https://get.scoop.sh"
 $PLUG_VIM        = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
