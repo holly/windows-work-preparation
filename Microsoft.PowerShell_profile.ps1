@@ -52,13 +52,17 @@ Function ucat() {
 
 del alias:ls  # PowerShell 側の ls を削除
 Function ls() {
-    ls.exe --color=auto $args
+  ls.exe --color=auto $args
 }
 Function ll() {
-    ls.exe --color=auto -l $args
+  ls.exe --color=auto -l $args
 }
 Function la() {
-    ls.exe --color=auto -la $args
+  ls.exe --color=auto -la $args
+}
+
+Function sup() {
+  Start-Process -FilePath pwsh -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
 }
 
 # ================= alias ================== #

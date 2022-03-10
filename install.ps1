@@ -24,6 +24,7 @@ $DIRS = @(
 
 $NVIM_TEMPLATE_FILES = @("python.txt")
 $MY_SCRIPTS          = @("x86_64-w64-mingw32-gcc.ps1", "scoop_update.ps1")
+$SHORTCUTS           = @("nvim-qt.exe")
 
 
 Write-Output "=== start ==="
@@ -94,6 +95,9 @@ $MY_SCRIPTS | ForEach-Object {
 Write-Output ""
 Write-Output "install scoop apps"
 Start-Process -FilePath pwsh -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
+
+Write-Output ""
+Write-Output "create desktop shortcut"
 
 Write-Output ""
 Write-Output "finishd."
