@@ -24,7 +24,7 @@ $DIRS = @(
 
 $NVIM_TEMPLATE_FILES = @("python.txt")
 $MY_SCRIPTS          = @("x86_64-w64-mingw32-gcc.ps1", "scoop_update.ps1")
-$SHORTCUTS           = @("nvim-qt.exe")
+$SHORTCUTS           = @("$ENV:USERPROFILE\scoop\apps\neovim\current\bin\nvim-qt.exe")
 
 
 Write-Output "=== start ==="
@@ -98,6 +98,13 @@ Start-Process -FilePath powershell -ArgumentList $ENV:USERPROFILE\bin\scoop_upda
 
 Write-Output ""
 Write-Output "create desktop shortcut"
+$SHORTCUTS | ForEach-Object {
+    $WSShell = New-Object -ComObject WScript.Shell
+    $ShortCut = $WSShell.CreateShortcut("$ENV:USERPROFILE\Desktop\" + [System.IO.Path]::GetFileName($PSItem) + ".lnk")
+    $ShortCut.TargetPath   = $PSItem
+    $ShortCut.IconLocation = $PSItem
+    $ShortCut.Save()
+}
 
 Write-Output ""
 Write-Output "finishd."
