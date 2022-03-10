@@ -1,4 +1,6 @@
-﻿$REPO_URL        = "https://raw.githubusercontent.com/holly/windows-work-preparation/main"
+﻿$ErrorActionPreference = "Stop"
+
+$REPO_URL        = "https://raw.githubusercontent.com/holly/windows-work-preparation/main"
 $SCOOP_LIST      = "$REPO_URL/scoop.txt"
 $PS_START_SCRIPT = "$REPO_URL/Microsoft.PowerShell_profile.ps1"
 $SCOOP_INSTALLER = "https://get.scoop.sh"
@@ -45,16 +47,6 @@ if (Test-Path "$ENV:USERPROFILE\scoop") {
 }
 
 
-Write-Output ""
-Write-Output "install scoop apps"
-$res = Invoke-WebRequest $SCOOP_LIST
-$body = $res.Content
-$body.Split("`n") | ForEach-Object {
-    $app = $PSItem.trim()
-    if ($app.Length -ne 0) {
-        scoop install $app
-    }
-}
 
 Write-Output ""
 Write-Output "download powershell start script"
@@ -98,6 +90,10 @@ $MY_SCRIPTS | ForEach-Object {
     Write-Output "save as $save_path"
 
 }
+
+Write-Output ""
+Write-Output "install scoop apps"
+Start-Process -FilePath pwsh -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
 
 Write-Output ""
 Write-Output "finishd."
