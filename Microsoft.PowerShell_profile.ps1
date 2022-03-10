@@ -50,6 +50,19 @@ Function ucat() {
   Get-Content -Encoding UTF8 -Path $Path
 }
 
+del alias:ls  # PowerShell 側の ls を削除
+Function ls() {
+    ls.exe --color=auto $args
+}
+Function ll() {
+    ls.exe --color=auto -l $args
+}
+Function la() {
+    ls.exe --color=auto -la $args
+}
+
 # ================= alias ================== #
 
 Set-Alias vi nvim
+Set-Alias gvim nvim-qt
+

@@ -98,3 +98,6 @@ $MY_SCRIPTS | ForEach-Object {
     Write-Output "save as $save_path"
 
 }
+
+Write-Output ""
+Write-Output "finishd."
