@@ -94,7 +94,7 @@ $MY_SCRIPTS | ForEach-Object {
 
 Write-Output ""
 Write-Output "install scoop apps"
-Start-Process -FilePath pwsh -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
+Start-Process -FilePath powershell -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
 
 Write-Output ""
 Write-Output "create desktop shortcut"
