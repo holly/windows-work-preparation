@@ -1,6 +1,8 @@
 $ENV:PATH += ";$ENV:USERPROFILE\bin"
+$ENV:EDITOR = "nvim"
 
 $MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
+
 
 # ターミナルの文字コードをUTF-8に変更
 $OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')

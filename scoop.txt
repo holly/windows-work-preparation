@@ -10,3 +10,4 @@ openssl
 pandoc
 glow
 fzf
+ripgrep
