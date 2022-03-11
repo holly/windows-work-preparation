@@ -159,9 +159,9 @@ Plug 'junegunn/vim-easy-align'
 Plug 'preservim/vim-markdown'
 Plug 'thinca/vim-quickrun'
 Plug 'cocopon/iceberg.vim'
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Shougo/vimproc.vim', { 'do': 'make CC=gcc' }
 Plug 'LeafCage/yankround.vim'
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
 call plug#end()
 
