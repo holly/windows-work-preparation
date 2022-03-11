@@ -2,6 +2,8 @@ $ENV:PATH += ";$ENV:USERPROFILE\bin"
 
 $MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
 
+# ターミナルの文字コードをUTF-8に変更
+$OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
 
 # ================= function ================== #
 
@@ -42,12 +44,24 @@ Function gipl() {
   git pull
 }
 
+Function gipl() {
+  git pull
+}
+
+Function gidf() {
+  git diff
+}
+
+Function gist() {
+  git status
+}
+
 Function ucat() {
 
   Param (
-    [String] $Path
+    [Parameter(Mandatory=$true)][String]$Target
   )
-  Get-Content -Encoding UTF8 -Path $Path
+  Get-Content -Encoding UTF8 -Path $Target
 }
 
 del alias:ls  # PowerShell 側の ls を削除
@@ -65,8 +79,16 @@ Function sup() {
   Start-Process -FilePath powershell -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
 }
 
+Function rmfr() {
+
+    Param(
+        [Parameter(Mandatory=$true)][string]$Target
+    )
+    Remove-Item -Recurse -Force $Target
+}
+
 # ================= alias ================== #
 
 Set-Alias vi nvim
-Set-Alias gvim nvim-qt
+Set-Alias qt nvim-qt
 
