@@ -1,11 +1,12 @@
- 7zip
- gcc
- git
- go
- python
- gow
- jq
- neovim
- openssl
- pandoc
- glow
+7zip
+gcc
+git
+go
+python
+gow
+jq
+neovim
+openssl
+pandoc
+glow
+fzf
