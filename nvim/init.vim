@@ -162,6 +162,7 @@ Plug 'cocopon/iceberg.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make CC=gcc' }
 Plug 'LeafCage/yankround.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 call plug#end()
 
