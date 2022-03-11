@@ -92,3 +92,10 @@ Function rmfr() {
 Set-Alias vi nvim
 Set-Alias qt nvim-qt
 
+# ================= for PSFzf ================== #
+# PSFzfの読み込みとAlias有効化
+# https://qiita.com/SAITO_Keita/items/f1832b34a9946fc8c716
+Import-Module PSFzf
+Enable-PsFzfAliases
+# ZLocationの読み込み
+Import-Module ZLocation

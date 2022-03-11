@@ -112,6 +112,16 @@ $SHORTCUTS | ForEach-Object {
     Write-Output "create shortcut as $path"
 }
 
+Write-Output ""
+Write-Output ">> install 3rd party modules"
+Install-Module -Name PSFzf -scope currentUser -Force
+Install-Module -Name ZLocation -scope currentUser -Force
+# PSFzfの読み込みとAlias有効化
+Import-Module PSFzf
+Enable-PsFzfAliases
+# ZLocationの読み込み
+Import-Module ZLocation
+
 
 $END_DATE = Get-Date
 $elapced = ($END_DATE - $START_DATE).TotalSeconds 
