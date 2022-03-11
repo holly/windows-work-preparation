@@ -56,7 +56,7 @@ Function gist() {
   git status
 }
 
-Function ucat() {
+Function catu() {
 
   Param (
     [Parameter(Mandatory=$true)][String]$Target
