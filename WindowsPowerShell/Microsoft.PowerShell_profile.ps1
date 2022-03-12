@@ -30,7 +30,7 @@ Function home() {
   Set-Location $ENV:USERPROFILE
 }
 
-Function gico() {
+Function gco() {
   Param (
     [String] $Comment
   )
@@ -38,23 +38,19 @@ Function gico() {
 }
 
 
-Function giph() {
+Function gph() {
   git push origin main
 }
 
-Function gipl() {
+Function gpl() {
   git pull
 }
 
-Function gipl() {
-  git pull
-}
-
-Function gidf() {
+Function gdf() {
   git diff
 }
 
-Function gist() {
+Function gst() {
   git status
 }
 
