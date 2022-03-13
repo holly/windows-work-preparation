@@ -17,3 +17,7 @@ my windows work environment setup.
 ## setup list
 
 * create $PROFILE
+
+* install scoop
+
+* install scoop apps. see [scoop.txt](https://raw.githubusercontent.com/holly/windows-work-preparation/main/scoop.txt)
