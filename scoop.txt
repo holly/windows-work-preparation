@@ -1,3 +1,4 @@
+aria2
 7zip
 gcc
 git
