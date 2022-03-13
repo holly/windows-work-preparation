@@ -87,6 +87,29 @@ Function Get-TerminalBackgroundImage() {
   python $ENV:USERPROFILE\bin\term_background_image.py get | ConvertFROM-JSON
 }
 
+Function Set-TerminalBackgroundImage() {
+
+  Param(
+    [String]$BackgroundImage,
+    [Float]$BackgroundImageOpacity,
+    [Switch]$Save
+  )
+
+  $argments = ""
+  if (-Not([string]::IsNullOrEmpty($BackgroundImage))) {
+    $argments = $Args + "--background-image=$BackgroundImage"
+  }
+  if ($BackgroundImageOpacity -ne 0) {
+    $argments = $argments + " --background-image-opacity=$BackgroundImageOpacity"
+  }
+  if ($Save) {
+    $argments = $argments + " --save-terminal-setting-json"
+  }
+
+  $cmd = "python $ENV:USERPROFILE\bin\term_background_image.py set $argments"
+  Invoke-Expression $cmd
+}
+
 Function Invoke-ScoopUpdate() {
   #Start-Process -FilePath powershell -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
   scoop_update.ps1
