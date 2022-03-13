@@ -1,9 +1,9 @@
 $ENV:PATH += ";$ENV:USERPROFILE\bin"
 $ENV:EDITOR = "nvim"
+$ENV:TERMINAL_WALLPAPER_DIR = "$ENV:USERPROFILE\wallpaper"
 
 $MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
 $TERMINAL_SETTINGS = "$ENV:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-$TERMINAL_WALLPAPER_DIR = "$ENV:USERPROFILE\wallpaper"
 
 
 # ターミナルの文字コードをUTF-8に変更
@@ -81,6 +81,10 @@ Function rmfr() {
         [Parameter(Mandatory=$true)][string]$Target
     )
     Remove-Item -Recurse -Force $Target
+}
+
+Function Get-TerminalBackgroundImage() {
+  python $ENV:USERPROFILE\bin\term_background_image.py get | ConvertFROM-JSON
 }
 
 Function Invoke-ScoopUpdate() {
