@@ -1,15 +1,16 @@
+# ================= environ variables ================== #
 $ENV:PATH += ";$ENV:USERPROFILE\bin"
 $ENV:EDITOR = "nvim"
 $ENV:TERMINAL_WALLPAPER_DIR = "$ENV:USERPROFILE\wallpaper"
 
-$MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
-$TERMINAL_SETTINGS = "$ENV:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-
-
+# ================= terminal variables ================== #
 # ターミナルの文字コードをUTF-8に変更
 $OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
 
-# ================= function ================== #
+# nvim設定ファイル
+$MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
+
+# ================= terminal function ================== #
 
 function prompt () {
     $prompt = if (-not(([Security.Principal.WindowsPrincipal] `
@@ -23,6 +24,8 @@ function prompt () {
     "[$($env:USERNAME)@$($env:COMPUTERNAME) " + (Split-Path (Get-Location) -Leaf) + "]${prompt}"
 }
 
+# ================= basic function ================== #
+
 Function uptime() {
   [DateTime]::Now -  [Management.ManagementDateTimeConverter]::ToDateTime((Get-WmiObject Win32_OperatingSystem).LastBootUpTime) |
   Select-Object Days, Hours, Seconds, Milliseconds| Format-Table -AutoSize
@@ -34,7 +37,7 @@ Function home() {
 
 Function gco() {
   Param (
-    [String] $Comment
+    [String]$Comment
   )
   git commit -m "$Comment"
 }
@@ -77,12 +80,17 @@ Function la() {
 
 Function rmfr() {
 
-    Param(
-        [Parameter(Mandatory=$true)][string]$Target
-    )
-    Remove-Item -Recurse -Force $Target
+  Param(
+    [Parameter(Mandatory=$true)][String]$Target
+  )
+  Remove-Item -Recurse -Force $Target
 }
 
+Function vimrc() {
+  nvim-qt $MYVIMRC
+}
+
+# ================= custom function ================== #
 Function Get-TerminalBackgroundImage() {
   python $ENV:USERPROFILE\bin\term_background_image.py get | ConvertFROM-JSON
 }
@@ -120,6 +128,8 @@ Function Invoke-ScoopUpdate() {
 Set-Alias vi nvim
 Set-Alias qt nvim-qt
 Set-Alias isu Invoke-ScoopUpdate
+Set-Alias gbi Get-TerminalBackgroundImage
+Set-Alias sbi Set-TerminalBackgroundImage
 
 # ================= for PSFzf ================== #
 # PSFzfの読み込みとAlias有効化
@@ -128,3 +138,4 @@ Import-Module PSFzf
 Enable-PsFzfAliases
 # ZLocationの読み込み
 Import-Module ZLocation
+
