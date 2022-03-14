@@ -3,6 +3,7 @@ aria2
 gcc
 git
 go
+perl
 python
 gow
 jq
