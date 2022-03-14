@@ -1,6 +1,6 @@
 # ================= environ variables ================== #
 $ENV:PATH += ";$ENV:USERPROFILE\bin"
-$ENV:EDITOR = "nvim"
+$ENV:EDITOR = "nvim-qt"
 $ENV:TERMINAL_WALLPAPER_DIR = "$ENV:USERPROFILE\wallpaper"
 
 # ================= terminal variables ================== #
