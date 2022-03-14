@@ -35,30 +35,6 @@ Function home() {
   Set-Location $ENV:USERPROFILE
 }
 
-Function gco() {
-  Param (
-    [String]$Comment
-  )
-  git commit -m "$Comment"
-}
-
-
-Function gph() {
-  git push origin main
-}
-
-Function gpl() {
-  git pull
-}
-
-Function gdf() {
-  git diff
-}
-
-Function gst() {
-  git status
-}
-
 Function catu() {
 
   Param (
