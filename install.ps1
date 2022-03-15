@@ -123,6 +123,19 @@ Import-Module ZLocation
 # replace 'Ctrl+t' and 'Ctrl+r' with your preferred bindings:
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
+Write-Output ""
+Write-Output ">> set git config"
+git config --global core.autocrlf false
+git config --global core.editor nvim
+$res = (git config --global user.name)
+if ([String]::IsNullOrEmpty($res)) {
+	git config --global user.name $ENV:USERNAME
+}
+git config --global core.autocrlf
+git config --global core.editor
+git config --global user.name
+
+
 $END_DATE = Get-Date
 $elapced = ($END_DATE - $START_DATE).TotalSeconds 
 $last_message = "finished. (" + $elapced + "sec)"
