@@ -26,6 +26,18 @@ function prompt () {
 
 # ================= basic function ================== #
 
+Function ex() {
+
+  Param(
+    [String]$Target
+  )
+
+  if ([string]::IsNullOrEmpty($Target)) {
+    $Target = $PWD
+  }
+  explorer.exe $Target
+}
+
 Function uptime() {
   [DateTime]::Now -  [Management.ManagementDateTimeConverter]::ToDateTime((Get-WmiObject Win32_OperatingSystem).LastBootUpTime) |
   Select-Object Days, Hours, Seconds, Milliseconds| Format-Table -AutoSize
@@ -79,18 +91,18 @@ Function Set-TerminalBackgroundImage() {
     [Switch]$Save
   )
 
-  $argments = ""
+  $arguments = ""
   if (-Not([string]::IsNullOrEmpty($BackgroundImage))) {
-    $argments = $Args + "--background-image=$BackgroundImage"
+    $arguments = $Args + "--background-image=$BackgroundImage"
   }
   if ($BackgroundImageOpacity -ne 0) {
-    $argments = $argments + " --background-image-opacity=$BackgroundImageOpacity"
+    $arguments = $arguments + " --background-image-opacity=$BackgroundImageOpacity"
   }
   if ($Save) {
-    $argments = $argments + " --save-terminal-setting-json"
+    $arguments = $arguments + " --save-terminal-setting-json"
   }
 
-  $cmd = "python $ENV:USERPROFILE\bin\term_background_image.py set $argments"
+  $cmd = "python $ENV:USERPROFILE\bin\term_background_image.py set $arguments"
   Invoke-Expression $cmd
 }
 
