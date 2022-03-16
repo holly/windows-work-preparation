@@ -26,17 +26,6 @@ function prompt () {
 
 # ================= basic function ================== #
 
-Function ex() {
-
-  Param(
-    [String]$Target
-  )
-
-  if ([string]::IsNullOrEmpty($Target)) {
-    $Target = $PWD
-  }
-  explorer.exe $Target
-}
 
 Function uptime() {
   [DateTime]::Now -  [Management.ManagementDateTimeConverter]::ToDateTime((Get-WmiObject Win32_OperatingSystem).LastBootUpTime) |
@@ -124,6 +113,18 @@ Function Set-TerminalBackgroundImage() {
   Invoke-Expression $cmd
 }
 
+Function Invoke-Explorer() {
+
+  Param(
+    [String]$Target
+  )
+
+  if ([string]::IsNullOrEmpty($Target)) {
+    $Target = $PWD
+  }
+  explorer.exe $Target
+}
+
 Function Invoke-ScoopUpdate() {
   #Start-Process -FilePath powershell -ArgumentList $ENV:USERPROFILE\bin\scoop_update.ps1 -Wait
   scoop_update.ps1
@@ -131,11 +132,13 @@ Function Invoke-ScoopUpdate() {
 
 # ================= alias ================== #
 
+Set-Alias ex Invoke-Explorer
 Set-Alias vi nvim
 Set-Alias qt nvim-qt
 Set-Alias isu Invoke-ScoopUpdate
 Set-Alias gbi Get-TerminalBackgroundImage
 Set-Alias sbi Set-TerminalBackgroundImage
+Set-Alias chrome "$ENV:PROGRAMFILES\Google\Chrome\Application\chrome.exe"
 
 try {
   Remove-Item alias:curl
