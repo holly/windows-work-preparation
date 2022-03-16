@@ -55,9 +55,13 @@ Function catu() {
   Get-Content -Encoding UTF8 -Path $Target
 }
 
-del alias:ls  # PowerShell 側の ls を削除
-Function ls() {
-  ls.exe --color=auto $args
+try {
+    Remove-Item alias:ls
+    Function ls() {
+      ls.exe --color=auto $args
+    }
+} catch {
+    Write-Output "(skip) $_.Exception_Message"
 }
 Function ll() {
   ls.exe --color=auto -l $args
@@ -132,6 +136,13 @@ Set-Alias qt nvim-qt
 Set-Alias isu Invoke-ScoopUpdate
 Set-Alias gbi Get-TerminalBackgroundImage
 Set-Alias sbi Set-TerminalBackgroundImage
+
+try {
+  Remove-Item alias:curl
+  Set-Alias curl "$ENV:USERPROFILE\scoop\apps\gow\current\bin\curl.exe"
+} catch {
+  Write-Output "(skip) $_.Exception_Message"
+}
 
 # ================= for PSFzf ================== #
 # PSFzfの読み込みとAlias有効化

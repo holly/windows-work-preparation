@@ -135,17 +135,17 @@ git config --global core.autocrlf
 git config --global core.editor
 git config --global user.name
 
+Write-Output ""
+Write-Output ">> set pandoc templates"
+if (-Not(Test-Path "$ENV:APPDATA\pandoc")) {
+  New-Item "$ENV:APPDATA\pandoc" -ItemType Directory
+  New-Item "$ENV:APPDATA\pandoc\templates" -ItemType Directory
+}
 
 $END_DATE = Get-Date
 $elapced = ($END_DATE - $START_DATE).TotalSeconds 
 $last_message = "finished. (" + $elapced + "sec)"
 
-Write-Output ""
-Write-Output ">> set pandoc templates"
-if (Test-Path "$ENV:APPDATA\pandoc") {
-  New-Item "$ENV:APPDATA\pandoc" -ItemType Directory
-  New-Item "$ENV:APPDATA\pandoc\templates" -ItemType Directory
-}
 
 Write-Output ""
 Write-Output $last_message
