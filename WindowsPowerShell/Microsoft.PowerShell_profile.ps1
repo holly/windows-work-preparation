@@ -79,6 +79,20 @@ Function vimrc() {
 }
 
 # ================= custom function ================== #
+Function Convert-Markdown2HTML() {
+
+  Param(
+    [Parameter(mandatory=$true)][String]$InputFile,
+    [String]$OutputFile
+  )
+
+  if (-Not(Test-Path $InputFile)) {
+    throw "$InputFile is not exists."
+  }
+
+  md2html $InputFile $OutputFile
+}
+
 Function Get-TerminalBackgroundImage() {
   python $ENV:USERPROFILE\bin\term_background_image.py get | ConvertFROM-JSON
 }
