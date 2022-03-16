@@ -139,6 +139,7 @@ Set-Alias isu Invoke-ScoopUpdate
 Set-Alias gbi Get-TerminalBackgroundImage
 Set-Alias sbi Set-TerminalBackgroundImage
 Set-Alias chrome "$ENV:PROGRAMFILES\Google\Chrome\Application\chrome.exe"
+Set-Alias edge "$ENV:ProgramFiles (x86)\Microsoft\Edge\Application\msedge.exe"
 
 try {
   Remove-Item alias:curl
