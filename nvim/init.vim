@@ -171,6 +171,7 @@ Plug 'LeafCage/yankround.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'itchyny/lightline.vim'
+Plug 'dhruvasagar/vim-table-mode'
 call plug#end()
 
 " for NERDTree
