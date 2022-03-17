@@ -170,6 +170,8 @@ if ([String]::IsNullOrEmpty($res)) {
 }
 git config --global alias.st status
 git config --global alias.cm commit
+git config --global alias.ph push
+git config --global alias.pl pull
 git config --global alias.stt "status -uno"
 git config --global alias.graph "log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'"
 git config --global alias.refresh "!git fetch origin && git remote prune origin"
