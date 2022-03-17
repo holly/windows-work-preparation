@@ -5,7 +5,7 @@ $ENV:TERMINAL_WALLPAPER_DIR = "$ENV:USERPROFILE\wallpaper"
 
 # ================= terminal variables ================== #
 # ターミナルの文字コードをUTF-8に変更
-$OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
+[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
 
 # nvim設定ファイル
 $MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
