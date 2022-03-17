@@ -7,26 +7,27 @@ $SCOOP_INSTALLER_URL = "https://get.scoop.sh"
 $PLUG_VIM_URL        = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 $DIRS = @(
-    "$ENV:USERPROFILE\Documents\WindowsPowerShell",
-    "$ENV:LOCALAPPDATA\nvim",
-    "$ENV:LOCALAPPDATA\nvim-data",
-    "$ENV:LOCALAPPDATA\nvim-data\site",
-    "$ENV:LOCALAPPDATA\nvim-data\site\autoload",
-    "$ENV:LOCALAPPDATA\nvim-data\plugged",
-    "$ENV:LOCALAPPDATA\nvim\template",
-    "$ENV:LOCALAPPDATA\nvim\pack",
-    "$ENV:LOCALAPPDATA\nvim\pack\vack",
-    "$ENV:LOCALAPPDATA\nvim\pack\vack\after",
-    "$ENV:LOCALAPPDATA\nvim\pack\vack\opt",
-    "$ENV:LOCALAPPDATA\nvim\pack\vack\start",
-    "$ENV:USERPROFILE\bin",
-    "$ENV:APPDATA\pandoc",
-    "$ENV:APPDATA\pandoc\templates"
+  "$ENV:USERPROFILE\Documents\WindowsPowerShell",
+  "$ENV:LOCALAPPDATA\nvim",
+  "$ENV:LOCALAPPDATA\nvim-data",
+  "$ENV:LOCALAPPDATA\nvim-data\site",
+  "$ENV:LOCALAPPDATA\nvim-data\site\autoload",
+  "$ENV:LOCALAPPDATA\nvim-data\plugged",
+  "$ENV:LOCALAPPDATA\nvim\template",
+  "$ENV:LOCALAPPDATA\nvim\pack",
+  "$ENV:LOCALAPPDATA\nvim\pack\vack",
+  "$ENV:LOCALAPPDATA\nvim\pack\vack\after",
+  "$ENV:LOCALAPPDATA\nvim\pack\vack\opt",
+  "$ENV:LOCALAPPDATA\nvim\pack\vack\start",
+  "$ENV:USERPROFILE\bin",
+  "$ENV:APPDATA\pandoc",
+  "$ENV:APPDATA\pandoc\templates"
+  )
 
-    )
 
-
-$SHORTCUTS  = @("$ENV:USERPROFILE\scoop\apps\neovim\current\bin\nvim-qt.exe")
+$SHORTCUTS  = @(
+  "$ENV:USERPROFILE\scoop\apps\neovim\current\bin\nvim-qt.exe"
+  )
 
 $StartDate = Get-Date
 
@@ -47,7 +48,7 @@ Write-Output ">> Install scoop"
 try {
   # scoopのインストール確認
   Get-Command scoop -ErrorAction Stop
-} 
+}
 catch [Exception] {
   # Scoopのインストール
   Set-ExecutionPolicy RemoteSigned -scope CurrentUser
@@ -56,15 +57,8 @@ catch [Exception] {
 
 
 Write-Output ""
-Write-Output ">> Install scoop apps"
-$Res = Invoke-WebRequest $SCOOP_LIST_URL
-$Body = $Res.Content
-$Body.Split("`n") | ForEach-Object {
-    $app = $PSItem.trim()
-    if ($app.Length -ne 0) {
-        scoop install $app
-    }
-}
+Write-Output ">> Install git"
+scoop install git
 
 
 Write-Output ""
@@ -75,7 +69,8 @@ if (Test-Path $LocalRepo) {
   Remove-Item -Path $LocalRepo -Force -Recurse
 }
 echo "git clone $REPO_URL"
-Start-Process -FilePath git -ArgumentList "clone $REPO_URL" -Wait
+#EStart-Process -FilePath git -ArgumentList "clone $REPO_URL" -Wait
+git clone $REPO_URL
 Pop-Location
 
 
@@ -99,6 +94,7 @@ Write-Output ">> Download vim-plug"
 $Dest = "$ENV:LOCALAPPDATA\nvim-data\site\autoload\plug.vim"
 Invoke-WebRequest -Uri $PLUG_VIM_URL -OutFile $Dest
 Write-Output "Save as $Dest"
+
 
 Write-Output ""
 Write-Output ">> Save vim template"
@@ -130,21 +126,26 @@ Get-ChildItem -Path "$LocalRepo\pandoc\templates" -File | ForEach-Object {
 }
 
 
+Write-Output ""
+Write-Output ">> Install scoop apps"
+powershell $ENV:USERPROFILE\bin\scoop_update.ps1
+
 
 Write-Output ""
 Write-Output ">> Make desktop shortcut"
 $SHORTCUTS | ForEach-Object {
 
-	$Dest = "$ENV:USERPROFILE\Desktop\" + [System.IO.Path]::GetFileName($PSItem) + ".lnk"
+    $Dest = "$ENV:USERPROFILE\Desktop\" + [System.IO.Path]::GetFileName($PSItem) + ".lnk"
 
     $WSShell = New-Object -ComObject WScript.Shell
     $ShortCut = $WSShell.CreateShortcut($Dest)
     $ShortCut.TargetPath   = $PSItem
     $ShortCut.IconLocation = $PSItem
     $ShortCut.Save()
-	
+
     Write-Output "Shortcut as $Dest"
 }
+
 
 Write-Output ""
 Write-Output ">> Install 3rd party modules"
@@ -158,6 +159,7 @@ Import-Module ZLocation
 # replace 'Ctrl+t' and 'Ctrl+r' with your preferred bindings:
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
+
 Write-Output ""
 Write-Output ">> Set git config"
 git config --global core.autocrlf false
@@ -166,11 +168,14 @@ $res = (git config --global user.name)
 if ([String]::IsNullOrEmpty($res)) {
 	git config --global user.name $ENV:USERNAME
 }
-git config --global core.autocrlf
-git config --global core.editor
-git config --global user.name
-
-
+git config --global alias.st status
+git config --global alias.cm commit
+git config --global alias.stt "status -uno"
+git config --global alias.graph "log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'"
+git config --global alias.refresh "!git fetch origin && git remote prune origin"
+git config --global alias.aa "!git add .  && git add -u && git status"
+git config --global alias.aliases "!git config --get-regexp alias | perl -nlpe 's/^alias\.//g; s/ / = /' | sort"
+git config --global alias.ls ls-files
 
 $EndDate = Get-Date
 $Elapced = ($EndDate - $StartDate).TotalSeconds 
