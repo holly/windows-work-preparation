@@ -10,7 +10,7 @@ $OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
 # nvim設定ファイル
 $MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
 # pandoc datadir
-$PANDOC_DATADIR = "$ENV:APPDATA\pandoc",
+$PANDOC_DATADIR = "$ENV:APPDATA\pandoc"
 # ================= terminal function ================== #
 
 function prompt () {
@@ -77,7 +77,7 @@ Function Convert-Markdown2HTML() {
 
   Param(
     [Parameter(mandatory=$true)][String]$InputFile,
-    [String]$OutputFile
+    [String]$OutputFile,
     [Switch]$Browse
   )
 
