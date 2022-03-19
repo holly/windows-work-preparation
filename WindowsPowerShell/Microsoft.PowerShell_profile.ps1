@@ -3,14 +3,26 @@ $ENV:PATH += ";$ENV:USERPROFILE\bin"
 $ENV:EDITOR = "nvim-qt"
 $ENV:TERMINAL_WALLPAPER_DIR = "$ENV:USERPROFILE\wallpaper"
 
+# ================ delete default alias ================= #
+
+try {
+  Remove-Item alias:ls
+  Remove-Item alias:curl
+} catch {
+  Write-Output "(skip) $_.Exception_Message"
+}
+
 # ================= terminal variables ================== #
 # ターミナルの文字コードをUTF-8に変更
 [Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
 
 # nvim設定ファイル
-$MYVIMRC = "$ENV:LOCALAPPDATA\nvim\init.vim"
+$MYVIMRC        = "$ENV:LOCALAPPDATA\nvim\init.vim"
 # pandoc datadir
 $PANDOC_DATADIR = "$ENV:APPDATA\pandoc"
+# install url
+$INSTALLER_URL  = "https://raw.githubusercontent.com/holly/windows-work-preparation/main/install.ps1"
+
 # ================= terminal function ================== #
 
 function prompt () {
@@ -45,17 +57,14 @@ Function catu() {
   Get-Content -Encoding UTF8 -Path $Target
 }
 
-try {
-    Remove-Item alias:ls
-    Function ls() {
-      ls.exe --color=auto $args
-    }
-} catch {
-    Write-Output "(skip) $_.Exception_Message"
+Function ls() {
+  ls.exe --color=auto $args
 }
+
 Function ll() {
   ls.exe --color=auto -l $args
 }
+
 Function la() {
   ls.exe --color=auto -la $args
 }
@@ -137,7 +146,7 @@ Function Invoke-ScoopUpdate() {
 }
 
 Function Update-MyEnv() {
-  (Invoke-WebRequest -Uri https://raw.githubusercontent.com/holly/windows-work-preparation/main/install.ps1).Content | Invoke-Expression
+  (Invoke-WebRequest -Uri $INSTALLER_URL).Content | Invoke-Expression
 }
 
 # ================= alias ================== #
@@ -150,13 +159,7 @@ Set-Alias gbi Get-TerminalBackgroundImage
 Set-Alias sbi Set-TerminalBackgroundImage
 Set-Alias chrome "$ENV:PROGRAMFILES\Google\Chrome\Application\chrome.exe"
 Set-Alias edge "$ENV:ProgramFiles (x86)\Microsoft\Edge\Application\msedge.exe"
-
-try {
-  Remove-Item alias:curl
-  Set-Alias curl "$ENV:USERPROFILE\scoop\apps\gow\current\bin\curl.exe"
-} catch {
-  Write-Output "(skip) $_.Exception_Message"
-}
+Set-Alias curl "$ENV:USERPROFILE\scoop\apps\gow\current\bin\curl.exe"
 
 # ================= for PSFzf ================== #
 # PSFzfの読み込みとAlias有効化
