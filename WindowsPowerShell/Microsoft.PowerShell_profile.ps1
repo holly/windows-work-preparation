@@ -87,7 +87,7 @@ Function Convert-Markdown2HTML() {
   md2html $InputFile $OutputFile
 
   if ($Browse) {
-    chrome --new-window $OutputFile
+    chrome --new-window (Resolve-Path $OutputFile).Path
   }
 }
 
