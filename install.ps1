@@ -168,6 +168,7 @@ $res = (git config --global user.name)
 if ([String]::IsNullOrEmpty($res)) {
 	git config --global user.name $ENV:USERNAME
 }
+git config --global alias.df diff
 git config --global alias.st status
 git config --global alias.cm commit
 git config --global alias.ph push
