@@ -6,8 +6,9 @@ $ENV:TERMINAL_WALLPAPER_DIR = "$ENV:USERPROFILE\wallpaper"
 # ================ delete default alias ================= #
 
 try {
-  Remove-Item alias:ls
+  Remove-Item alias:cat
   Remove-Item alias:curl
+  Remove-Item alias:ls
 } catch {
   Write-Output "(skip) $_.Exception_Message"
 }
@@ -45,17 +46,6 @@ Function uptime() {
   Select-Object Days, Hours, Seconds, Milliseconds| Format-Table -AutoSize
 }
 
-Function home() {
-  Set-Location $ENV:USERPROFILE
-}
-
-Function catu() {
-
-  Param (
-    [Parameter(Mandatory=$true)][String]$Target
-  )
-  Get-Content -Encoding UTF8 -Path $Target
-}
 
 Function ls() {
   ls.exe --color=auto $args
@@ -101,8 +91,20 @@ Function Convert-Markdown2HTML() {
   }
 }
 
+Function Get-ContentUTF8() {
+
+  Param (
+    [Parameter(Mandatory=$true)][String]$Target
+  )
+  Get-Content -Encoding UTF8 -Path $Target
+}
+
 Function Get-TerminalBackgroundImage() {
   python $ENV:USERPROFILE\bin\term_background_image.py get | ConvertFROM-JSON
+}
+
+Function Set-Home() {
+  Set-Location $ENV:USERPROFILE
 }
 
 Function Set-TerminalBackgroundImage() {
@@ -151,15 +153,17 @@ Function Update-MyEnv() {
 
 # ================= alias ================== #
 
-Set-Alias ex Invoke-Explorer
-Set-Alias vi nvim
-Set-Alias qt nvim-qt
-Set-Alias isu Invoke-ScoopUpdate
-Set-Alias gbi Get-TerminalBackgroundImage
-Set-Alias sbi Set-TerminalBackgroundImage
+Set-Alias cat Get-ContentUTF8
 Set-Alias chrome "$ENV:PROGRAMFILES\Google\Chrome\Application\chrome.exe"
-Set-Alias edge "$ENV:ProgramFiles (x86)\Microsoft\Edge\Application\msedge.exe"
 Set-Alias curl "$ENV:USERPROFILE\scoop\apps\gow\current\bin\curl.exe"
+Set-Alias edge "$ENV:ProgramFiles (x86)\Microsoft\Edge\Application\msedge.exe"
+Set-Alias ex Invoke-Explorer
+Set-Alias gbi Get-TerminalBackgroundImage
+Set-Alias home Set-Home
+Set-Alias isu Invoke-ScoopUpdate
+Set-Alias qt nvim-qt
+Set-Alias sbi Set-TerminalBackgroundImage
+Set-Alias vi nvim
 
 # ================= for PSFzf ================== #
 # PSFzfの読み込みとAlias有効化
