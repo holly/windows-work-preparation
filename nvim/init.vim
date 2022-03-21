@@ -165,6 +165,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'preservim/vim-markdown'
 Plug 'thinca/vim-quickrun'
 Plug 'cocopon/iceberg.vim'
+Plug 'gosukiwi/vim-atom-dark'
 Plug 'Shougo/vimproc.vim', { 'do': 'make CC=gcc' }
 Plug 'LeafCage/yankround.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
@@ -211,7 +212,7 @@ let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_folding_style_pythonic = 1
 " ================== キーマップ ================== "
 " ctrl+nでNERDTreeを起動できるようにする
-map <C-n> :NERDTreeToggle<CR>
+" map <C-n> :NERDTreeToggle<CR>
 
 " バッファ切替
 nnoremap <silent> <C-j> :bprev<CR>
