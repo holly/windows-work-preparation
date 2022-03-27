@@ -21,10 +21,26 @@ __version__ = '1.0'
 
 TERMINAL_SETTINGS_JSON = os.path.join(os.environ["USERPROFILE"], "AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
 
+def terminal_settings_json():
+
+    with open(TERMINAL_SETTINGS_JSON, "r", encoding="utf-8_sig") as f:
+        lines = []
+        for line in f:
+            line = line.rstrip()
+            m = re.search(r'^\s*//.*$', line)
+            if m:
+                continue
+            else:
+                lines.append(line)
+
+        text = "\n".join(lines)
+        data = json.loads(text)
+
+    return data
 
 def get_background_image_prop():
-    with open(TERMINAL_SETTINGS_JSON, "r") as f:
-      data = json.load(f)
+
+    data = terminal_settings_json()
 
     props = { "BackgroundImage": "", "BackgroundImageOpacity": "" }
     if "backgroundImage" in data["profiles"]["defaults"]:
@@ -74,15 +90,15 @@ def command_set(args):
             wallpaper = random.choice(wallpapers)
             background_image = os.path.join(os.environ["TERMINAL_WALLPAPER_DIR"], wallpaper)
 
-    with open(TERMINAL_SETTINGS_JSON, "r") as f:
-        data = json.load(f)
-        data["profiles"]["defaults"]["backgroundImage"]        = background_image
-        data["profiles"]["defaults"]["backgroundImageOpacity"] = background_image_opacity
+    data = terminal_settings_json()
+    data["profiles"]["defaults"]["backgroundImage"]        = background_image
+    data["profiles"]["defaults"]["backgroundImageOpacity"] = background_image_opacity
 
     json_str = json.dumps(data, indent=4, ensure_ascii=False)
 
     if args.save_terminal_setting_json:
-        with open(TERMINAL_SETTINGS_JSON, "w", newline="\n") as f:
+        #with open(TERMINAL_SETTINGS_JSON, "w", newline="\n") as f:
+        with open(TERMINAL_SETTINGS_JSON, "w", newline="\n", encoding="utf-8_sig") as f:
             print(json_str, file=f)
     else:
         print(json_str)
