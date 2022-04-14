@@ -169,6 +169,7 @@ Plug 'gosukiwi/vim-atom-dark'
 Plug 'Shougo/vimproc.vim', { 'do': 'make CC=gcc' }
 Plug 'LeafCage/yankround.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'itchyny/lightline.vim'
